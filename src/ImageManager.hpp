@@ -26,7 +26,7 @@ class ImageManager {
     
     // this is the singleton instance of the image
     // manager
-    static unique_ptr<ImageManager> theImageManager;
+    static ImageManager *theImageManager;
     
     // the constructor is private so that it can only
     // be created via the static functions below
@@ -35,6 +35,7 @@ public:
     
     // get hold of the manager
     static ImageManager & get();
+    static void deleteMangager();
     
     ~ImageManager();
     

@@ -9,7 +9,7 @@
 #include "ImageManager.hpp"
 
 // the singleton instance, initially set to null
-unique_ptr<ImageManager> ImageManager::theImageManager = nullptr;
+ImageManager *ImageManager::theImageManager = nullptr;
 
 // this it the singleton accessor
 // gets hold of the single instance of the class
@@ -17,11 +17,20 @@ ImageManager & ImageManager::get(){
     // check whether the instance has been allocated
     // if not call reset (which allocates a new instance)
     if(!theImageManager){
-        theImageManager.reset(new ImageManager());
+        theImageManager = new ImageManager();
     }
     // return the imagemanager
-    return *(theImageManager.get());
+    return *theImageManager;
 }
+
+void ImageManager::deleteMangager(){
+    // check whether the instance has been allocated
+    // if not call reset (which allocates a new instance)
+    if(theImageManager){
+        delete theImageManager;
+    }
+}
+
 
 
 // resets the image manager by deleting all of the images

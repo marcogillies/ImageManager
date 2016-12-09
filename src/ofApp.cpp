@@ -5,6 +5,11 @@ void ofApp::setup(){
     
 }
 
+void ofApp::exit(){
+    ImageManager::deleteMangager();
+}
+
+
 //--------------------------------------------------------------
 void ofApp::update(){
 
