@@ -22,10 +22,17 @@
 class ImageManager {
     // the images are stored in a map so you can
     // index them by name rather than a number
-    std::map<string, ofImage *> images;
+    // each image is stored as a shared pointer
+    // because they will be shared across many
+    // images
+    std::map<string, shared_ptr<ofImage> > images;
     
     // this is the singleton instance of the image
     // manager
+    // it is stored as a unique_ptr because there is
+    // only one object and it is not shared between
+    // different objects (though they access is temporarily
+    // through get).
     static unique_ptr<ImageManager> theImageManager;
     
     // the constructor is private so that it can only
@@ -34,6 +41,16 @@ class ImageManager {
 public:
     
     // get hold of the manager
+    // returns a refernece. It is safe
+    // to return a reference to an object stored
+    // as a unique_ptr because a refernece cannot be deleted,
+    // so we are sure that the pointer can only be deleted
+    // through the unique_ptr (there is a danger
+    // that the unique_ptr might delete the ImageManager
+    // while a reference is still using it. In this case it
+    // won't happen because the ImageManager will last for the entire
+    // program, but in general you should not store the reference
+    // returned by a function like this in anything but a local variable)
     static ImageManager & get();
     
     ~ImageManager();
@@ -45,8 +62,8 @@ public:
     void add(string filename);
     
     // gets an image by name
-    const ofImage & get(string name) const {
-        return (*images.at(name));
+    const shared_ptr<ofImage> get(string name) const {
+        return images.at(name);
     };
     
 };

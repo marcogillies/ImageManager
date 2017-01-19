@@ -20,9 +20,10 @@
  *  just focusing on how the image is handled
  */
 class GameObject {
-    // the image is stored as a reference
-    // because the actual instance is handled by the image manager
-    const ofImage &img;
+    // the image is stored as a shared pointer
+    // because the image manager and several GameObjects share
+    // each image
+    shared_ptr<ofImage> img;
     // position of the game object
     ofVec2f position;
 public:

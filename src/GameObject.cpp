@@ -28,5 +28,5 @@ GameObject::GameObject(const GameObject &go)
 }
 
 void GameObject::draw() const{
-    img.draw(position.x, position.y);
+    img->draw(position.x, position.y);
 }

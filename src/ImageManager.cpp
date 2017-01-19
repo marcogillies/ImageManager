@@ -29,17 +29,8 @@ ImageManager & ImageManager::get(){
 // but i wanted to demonstrate how to manually
 // delete stuff
 void ImageManager::reset(){
-    // iterate through all of the image
-    // and deletel them.
-    // Iterating through a map gives you a
-    // set of pairs, the first element of which
-    // is the key (string)
-    // and the second is the value (image pointer)
-    // we are deleting the second (which is the
-    // actual image pointer)
-    for(auto pair : images){
-        delete pair.second;
-    };
+    // we no longer need to delete anything because we are using smart pointers
+    
     // clear empties the map removing all elements
     images.clear();
 };
@@ -60,7 +51,7 @@ ImageManager::~ImageManager(){
 // loads a file and adds it to the map
 void ImageManager::add(string filename){
     // allocate a new ofImage
-    ofImage *img = new ofImage();
+    shared_ptr<ofImage> img = make_shared<ofImage>();
     // load from the file
     img->load(filename);
     // add it to the map
